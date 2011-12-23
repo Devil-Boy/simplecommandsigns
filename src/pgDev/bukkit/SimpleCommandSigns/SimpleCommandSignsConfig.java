@@ -17,7 +17,7 @@ public class SimpleCommandSignsConfig {
 	
 	// List of Config Options
 	boolean signAutoLock;
-	String commandSignIdentifier;
+	public String commandSignIdentifier;
 	
 	
 	public SimpleCommandSignsConfig(Properties p, final SimpleCommandSigns plugin) {
