@@ -45,7 +45,7 @@ public class SimpleCommandSigns extends JavaPlugin {
     String pluginConfigLocation = pluginMainDir + "/SimpleCommandSigns.cfg";
     
     // Plugin Configuration
-    SimpleCommandSignsConfig pluginSettings;
+    public SimpleCommandSignsConfig pluginSettings;
 
     public void onEnable() {
     	// Load the Configuration
