@@ -43,6 +43,10 @@ public class SimpleCommandSignsBlockListener extends BlockListener {
     public void onSignChange(SignChangeEvent event) {
     	if (event.getLine(0).equalsIgnoreCase(plugin.pluginSettings.commandSignIdentifier) && plugin.hasPermissions(event.getPlayer(), "scs.create")) {
 			event.setLine(0, ChatColor.GREEN + plugin.pluginSettings.commandSignIdentifier);
+			
+			if (plugin.debug) { // Some debug code
+				System.out.println("CommandSign created!");
+    		}
 
 			if(plugin.pluginSettings.signAutoLock && plugin.lwc != null && plugin.hasPermissions(event.getPlayer(), "scs.autolock")) {
 				Block tS = event.getBlock();
@@ -56,6 +60,10 @@ public class SimpleCommandSignsBlockListener extends BlockListener {
 				int z = tS.getZ();
 				type = com.griefcraft.model.ProtectionTypes.PRIVATE;
 				plugin.lwc.getPhysicalDatabase().registerProtection(blockId, type, world, owner, password, x, y, z);
+				
+				if (plugin.debug) { // Some debug code
+					System.out.println("CommandSign locked!");
+	    		}
 			}
 		}
     }

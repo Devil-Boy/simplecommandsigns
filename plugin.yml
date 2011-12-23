@@ -1,6 +1,6 @@
 name: SimpleCommandSigns
 main: pgDev.bukkit.SimpleCommandSigns.SimpleCommandSigns
-version: 0.1
+version: 0.3
 author: Devil Boy
 description: Hit a sign, run a command!
 

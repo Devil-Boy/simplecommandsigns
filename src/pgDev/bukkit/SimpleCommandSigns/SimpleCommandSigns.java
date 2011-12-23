@@ -27,6 +27,9 @@ import com.griefcraft.lwc.*;
  * @author DevilBoy
  */
 public class SimpleCommandSigns extends JavaPlugin {
+	// Debugging
+	boolean debug = false;
+	
     // Listeners
 	public final SimpleCommandSignsPlayerListener playerListener = new SimpleCommandSignsPlayerListener(this);
     public final SimpleCommandSignsBlockListener blockListener = new SimpleCommandSignsBlockListener(this);
@@ -124,7 +127,7 @@ public class SimpleCommandSigns extends JavaPlugin {
     
     // Here's some functions I can use
     public boolean isSign(Block theBlock) {
-    	if (theBlock.getType() == Material.SIGN || theBlock.getType() == Material.SIGN_POST) {
+    	if (theBlock.getType() == Material.SIGN || theBlock.getType() == Material.SIGN_POST || theBlock.getType() == Material.WALL_SIGN) {
     		return true;
     	} else {
     		return false;

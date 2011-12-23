@@ -25,9 +25,20 @@ public class SimpleCommandSignsPlayerListener extends PlayerListener {
     //Insert Player related code here
     public void onPlayerInteract(PlayerInteractEvent event) {
     	if (event.getAction() == Action.RIGHT_CLICK_BLOCK && plugin.hasPermissions(event.getPlayer(), "scs.use")) {
+    		if (plugin.debug) { // Some debug code
+				System.out.println(event.getPlayer().getName() + " right-clicked a block of type " + event.getClickedBlock().getType().toString() + "!");
+    		}
+    		
 	    	if (event.getClickedBlock() != null && plugin.isSign(event.getClickedBlock())) {
+	    		if (plugin.debug) { // Some debug code
+					System.out.println("The block was a sign!");
+	    		}
+	    		
 	    		Sign theSign = (Sign)event.getClickedBlock().getState();
 	    		if (theSign.getLine(0).equals(ChatColor.GREEN + plugin.pluginSettings.commandSignIdentifier)) {
+	    			if (plugin.debug) { // Some debug code
+	    				System.out.println("It was a CommandSign!");
+	        		}
 	    			String commandString = theSign.getLine(1) + theSign.getLine(2) + theSign.getLine(3);
 	    			if (commandString.startsWith("/")) {
 	    				commandString = commandString.substring(1);
