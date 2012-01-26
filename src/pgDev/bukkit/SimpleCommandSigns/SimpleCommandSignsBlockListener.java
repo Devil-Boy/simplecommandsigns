@@ -4,13 +4,15 @@ import org.bukkit.block.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
 
 /**
  * SimpleCommandSigns block listener
  * @author DevilBoy
  */
-public class SimpleCommandSignsBlockListener extends BlockListener {
+public class SimpleCommandSignsBlockListener implements Listener {
     private final SimpleCommandSigns plugin;
 
     public SimpleCommandSignsBlockListener(final SimpleCommandSigns plugin) {
@@ -40,6 +42,7 @@ public class SimpleCommandSignsBlockListener extends BlockListener {
     	}
     }*/
     
+    @EventHandler
     public void onSignChange(SignChangeEvent event) {
     	if (event.getLine(0).equalsIgnoreCase(plugin.pluginSettings.commandSignIdentifier) && plugin.hasPermissions(event.getPlayer(), "scs.create")) {
 			event.setLine(0, ChatColor.GREEN + plugin.pluginSettings.commandSignIdentifier);

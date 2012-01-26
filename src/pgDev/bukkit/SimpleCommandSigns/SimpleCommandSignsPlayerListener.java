@@ -4,6 +4,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerEvent;
@@ -15,7 +17,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
  * Handle events for all Player related events
  * @author DevilBoy
  */
-public class SimpleCommandSignsPlayerListener extends PlayerListener {
+public class SimpleCommandSignsPlayerListener implements Listener {
     private final SimpleCommandSigns plugin;
 
     public SimpleCommandSignsPlayerListener(SimpleCommandSigns instance) {
@@ -23,6 +25,7 @@ public class SimpleCommandSignsPlayerListener extends PlayerListener {
     }
 
     //Insert Player related code here
+    @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
     	if (event.getAction() == Action.RIGHT_CLICK_BLOCK && plugin.hasPermissions(event.getPlayer(), "scs.use")) {
     		if (plugin.debug) { // Some debug code

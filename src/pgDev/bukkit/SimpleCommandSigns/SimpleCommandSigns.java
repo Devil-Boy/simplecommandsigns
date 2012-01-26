@@ -69,10 +69,8 @@ public class SimpleCommandSigns extends JavaPlugin {
     	
         // Register our events
         PluginManager pm = getServer().getPluginManager();
-        //pm.registerEvent(Event.Type.BLOCK_PLACE, blockListener, Priority.Normal, this);
-        pm.registerEvent(Event.Type.SIGN_CHANGE, blockListener, Priority.Normal, this);
-        //pm.registerEvent(Event.Type.BLOCK_DAMAGE, blockListener, Priority.Normal, this);
-        pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Priority.Normal, this);
+        pm.registerEvents(blockListener, this);
+        pm.registerEvents(playerListener, this);
         
         // Permissions turn on!
     	setupPermissions();
