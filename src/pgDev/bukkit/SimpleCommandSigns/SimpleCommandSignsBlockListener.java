@@ -2,8 +2,6 @@ package pgDev.bukkit.SimpleCommandSigns;
 
 import org.bukkit.block.*;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
@@ -44,14 +42,14 @@ public class SimpleCommandSignsBlockListener implements Listener {
     
     @EventHandler
     public void onSignChange(SignChangeEvent event) {
-    	if (event.getLine(0).equalsIgnoreCase(plugin.pluginSettings.commandSignIdentifier) && plugin.hasPermissions(event.getPlayer(), "scs.create")) {
+    	if (event.getLine(0).equalsIgnoreCase(plugin.pluginSettings.commandSignIdentifier) && plugin.hasPermissions(event.getPlayer(), "scsigns.create")) {
 			event.setLine(0, ChatColor.GREEN + plugin.pluginSettings.commandSignIdentifier);
 			
 			if (plugin.debug) { // Some debug code
 				System.out.println("CommandSign created!");
     		}
 
-			if(plugin.pluginSettings.signAutoLock && plugin.lwc != null && plugin.hasPermissions(event.getPlayer(), "scs.autolock")) {
+			if(plugin.pluginSettings.signAutoLock && plugin.lwc != null && plugin.hasPermissions(event.getPlayer(), "scsigns.autolock")) {
 				Block tS = event.getBlock();
 				int blockId = tS.getTypeId();
 				int type = 0;

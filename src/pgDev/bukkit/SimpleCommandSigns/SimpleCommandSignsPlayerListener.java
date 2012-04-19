@@ -1,17 +1,11 @@
 package pgDev.bukkit.SimpleCommandSigns;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.block.Sign;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerChatEvent;
-import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerListener;
-import org.bukkit.event.player.PlayerMoveEvent;
 
 /**
  * Handle events for all Player related events
@@ -27,7 +21,7 @@ public class SimpleCommandSignsPlayerListener implements Listener {
     //Insert Player related code here
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-    	if (event.getAction() == Action.RIGHT_CLICK_BLOCK && plugin.hasPermissions(event.getPlayer(), "scs.use")) {
+    	if (event.getAction() == Action.RIGHT_CLICK_BLOCK && plugin.hasPermissions(event.getPlayer(), "scsigns.use")) {
     		if (plugin.debug) { // Some debug code
 				System.out.println(event.getPlayer().getName() + " right-clicked a block of type " + event.getClickedBlock().getType().toString() + "!");
     		}

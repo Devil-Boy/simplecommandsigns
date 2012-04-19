@@ -1,23 +1,23 @@
 name: SimpleCommandSigns
 main: pgDev.bukkit.SimpleCommandSigns.SimpleCommandSigns
-version: 0.6
+version: 0.7
 author: PG Dev Team
 authors: [Devil Boy]
 description: Hit a sign, run a command!
 
 permissions:
-    scs.*:
+    scsigns.*:
         default: op
         description: Gives access to all Simple Command Signs usage.
         children:
             scs.create: true
             scs.use: true
-    scs.create:
+    scsigns.create:
         default: op
         description: Can create a command sign.
-    scs.use:
+    scsigns.use:
         default: true
         description: Can use a command sign.
-    scs.autolock:
+    scsigns.autolock:
         default: op
         description: Can have command signs autolocked by LWC.
