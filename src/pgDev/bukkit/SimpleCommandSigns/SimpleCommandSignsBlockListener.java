@@ -42,14 +42,14 @@ public class SimpleCommandSignsBlockListener implements Listener {
     
     @EventHandler
     public void onSignChange(SignChangeEvent event) {
-    	if (event.getLine(0).equalsIgnoreCase(plugin.pluginSettings.commandSignIdentifier) && plugin.hasPermissions(event.getPlayer(), "scsigns.create")) {
+    	if (event.getLine(0).equalsIgnoreCase(plugin.pluginSettings.commandSignIdentifier) && event.getPlayer().hasPermission("scsigns.create")) {
 			event.setLine(0, ChatColor.GREEN + plugin.pluginSettings.commandSignIdentifier);
 			
 			if (plugin.debug) { // Some debug code
 				System.out.println("CommandSign created!");
     		}
 
-			if(plugin.pluginSettings.signAutoLock && plugin.lwc != null && plugin.hasPermissions(event.getPlayer(), "scsigns.autolock")) {
+			if(plugin.pluginSettings.signAutoLock && plugin.lwc != null && event.getPlayer().hasPermission("scsigns.autolock")) {
 				Block tS = event.getBlock();
 				int blockId = tS.getTypeId();
 				int type = 0;

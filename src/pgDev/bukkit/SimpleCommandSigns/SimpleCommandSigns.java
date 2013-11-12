@@ -12,8 +12,6 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
 
-import com.nijiko.permissions.PermissionHandler;
-import com.nijikokun.bukkit.Permissions.Permissions;
 import com.griefcraft.lwc.*;
 
 /**
@@ -32,7 +30,6 @@ public class SimpleCommandSigns extends JavaPlugin {
     //public final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
     
     // Plugin Integrations
-    private static PermissionHandler Permissions;
     public LWC lwc = null;
     
     // File Locations
@@ -66,9 +63,6 @@ public class SimpleCommandSigns extends JavaPlugin {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(blockListener, this);
         pm.registerEvents(playerListener, this);
-        
-        // Permissions turn on!
-    	setupPermissions();
     	
     	// LWC turn on!
     	Plugin lwcPlugin = getServer().getPluginManager().getPlugin("LWC");
@@ -97,26 +91,6 @@ public class SimpleCommandSigns extends JavaPlugin {
     public void setDebugging(final Player player, final boolean value) {
         debugees.put(player, value);
     }*/
-    
-    // Permissions Methods
-    private void setupPermissions() {
-        Plugin permissions = this.getServer().getPluginManager().getPlugin("Permissions");
-
-        if (Permissions == null) {
-            if (permissions != null) {
-                Permissions = ((Permissions)permissions).getHandler();
-            } else {
-            }
-        }
-    }
-    
-    public static boolean hasPermissions(Player player, String node) {
-        if (Permissions != null) {
-        	return Permissions.has(player, node);
-        } else {
-            return player.hasPermission(node);
-        }
-    }
     
     // Here's some functions I can use
     public boolean isSign(Block theBlock) {

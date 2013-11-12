@@ -5,6 +5,7 @@ import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 /**
@@ -21,7 +22,7 @@ public class SimpleCommandSignsPlayerListener implements Listener {
     //Insert Player related code here
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-    	if (event.getAction() == Action.RIGHT_CLICK_BLOCK && plugin.hasPermissions(event.getPlayer(), "scsigns.use")) {
+    	if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getPlayer().hasPermission("scsigns.use")) {
     		if (plugin.debug) { // Some debug code
 				System.out.println(event.getPlayer().getName() + " right-clicked a block of type " + event.getClickedBlock().getType().toString() + "!");
     		}
@@ -40,7 +41,18 @@ public class SimpleCommandSignsPlayerListener implements Listener {
 	    			if (commandString.startsWith("/")) {
 	    				commandString = commandString.substring(1);
 	    			}
-	    			event.getPlayer().performCommand(commandString.replace("%p", event.getPlayer().getName()));
+	    			
+	    			commandString = commandString.replace("%p", event.getPlayer().getName());
+	    			
+	    			if (plugin.pluginSettings.callPreprocess) {
+	    				PlayerCommandPreprocessEvent pcpe = new PlayerCommandPreprocessEvent(event.getPlayer(), commandString);
+		    			plugin.getServer().getPluginManager().callEvent(pcpe);
+		    			if (!pcpe.isCancelled()) {
+		    				event.getPlayer().performCommand(pcpe.getMessage());
+		    			}
+	    			} else {
+	    				event.getPlayer().performCommand(commandString);
+	    			}
 	    		}
 	    	}
     	}

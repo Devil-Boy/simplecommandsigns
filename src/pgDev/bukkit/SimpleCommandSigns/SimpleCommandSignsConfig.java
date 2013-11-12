@@ -1,12 +1,9 @@
 package pgDev.bukkit.SimpleCommandSigns;
 
-import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 
@@ -16,8 +13,9 @@ public class SimpleCommandSignsConfig {
 	public boolean upToDate = true;
 	
 	// List of Config Options
-	boolean signAutoLock;
+	public boolean signAutoLock;
 	public String commandSignIdentifier;
+	public boolean callPreprocess;
 	
 	
 	public SimpleCommandSignsConfig(Properties p, final SimpleCommandSigns plugin) {
@@ -27,6 +25,7 @@ public class SimpleCommandSignsConfig {
         // Grab values here.
         signAutoLock = getBoolean("autoSignLock", false);
         commandSignIdentifier = getString("csActivator", "[SCS]").trim();
+        callPreprocess = getBoolean("calllPreprocess", true);
 	}
 	
 	
@@ -45,11 +44,6 @@ public class SimpleCommandSignsConfig {
         String value = getString(label);
         return Double.parseDouble(value);
     }
-    
-    public File getFile(String label) throws NoSuchElementException {
-        String value = getString(label);
-        return new File(value);
-    }
 
     public boolean getBoolean(String label, boolean thedefault) {
     	String values;
@@ -58,46 +52,6 @@ public class SimpleCommandSignsConfig {
         	return Boolean.valueOf(values).booleanValue();
         } catch (NoSuchElementException e) {
         	return thedefault;
-        }
-    }
-    
-    public Color getColor(String label) {
-        String value = getString(label);
-        Color color = Color.decode(value);
-        return color;
-    }
-    
-    public HashSet<String> getSet(String label, String thedefault) {
-        String values;
-        try {
-        	values = getString(label);
-        } catch (NoSuchElementException e) {
-        	values = thedefault;
-        }
-        String[] tokens = values.split(",");
-        HashSet<String> set = new HashSet<String>();
-        for (int i = 0; i < tokens.length; i++) {
-            set.add(tokens[i].trim().toLowerCase());
-        }
-        return set;
-    }
-    
-    public LinkedList<String> getList(String label, String thedefault) {
-    	String values;
-        try {
-        	values = getString(label);
-        } catch (NoSuchElementException e) {
-        	values = thedefault;
-        }
-        if(!values.equals("")) {
-            String[] tokens = values.split(",");
-            LinkedList<String> set = new LinkedList<String>();
-            for (int i = 0; i < tokens.length; i++) {
-                set.add(tokens[i].trim().toLowerCase());
-            }
-            return set;
-        }else {
-        	return new LinkedList<String>();
         }
     }
     
@@ -118,23 +72,6 @@ public class SimpleCommandSignsConfig {
         	value = thedefault;
         }
         return value;
-    }
-    
-    public String linkedListToString(LinkedList<String> list) {
-    	if(list.size() > 0) {
-    		String compounded = "";
-    		boolean first = true;
-        	for (String value : list) {
-        		if (first) {
-        			compounded = value;
-        			first = false;
-        		} else {
-        			compounded = compounded + "," + value;
-        		}
-        	}
-        	return compounded;
-    	}
-    	return "";
     }
     
     
@@ -162,6 +99,13 @@ public class SimpleCommandSignsConfig {
     		out.write("#	Warning: Changing this after having placed command signs\r\n");
     		out.write("#	will disable previous signs.\r\n");
     		out.write("csActivator=" + commandSignIdentifier + "\r\n");
+    		out.write("\r\n");
+    		out.write("# PlayerCommandPreprocessEvent\r\n");
+    		out.write("#	With this enabled, the player will call Bukkit's\r\n");
+    		out.write("#	PlayerCommandPreprocessEvent before running any command.\r\n");
+    		out.write("#	This will allow other plugins to cancel the command\r\n");
+    		out.write("#	and/or change the content of the command.\r\n");
+    		out.write("callPreprocess=" + callPreprocess + "\r\n");
     		out.close();
     	} catch (Exception e) {
     		System.out.println(e);
